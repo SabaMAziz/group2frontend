@@ -55,6 +55,7 @@ export class RestDataSource {
     }
 
     authenticate(user: string, pass: string): Observable<ResponseModel> {
+        console.log('User'+user+'pass'+pass);
         return this.http.post<any>(this.baseUrl + "users/signin",
          {
             username: user,
@@ -65,7 +66,9 @@ export class RestDataSource {
             this.auth_token = response.sucess ? response.token : null;
             return response;
         }),
-         catchError(error => {return (error.error)}));
+         catchError(error => {
+            console.log(error);
+            return (error.error)}));
     }
 
     signupUser(user: User): Observable<ResponseModel> {
