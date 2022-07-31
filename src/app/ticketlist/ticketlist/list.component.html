@@ -1,0 +1,62 @@
+<!--
+Ready2Help
+COMP299-SEC004
+July-14-2022
+list.ejs
+-->
+
+<app-header></app-header>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+    <div class="row">
+      <div class="col-md-offset-1 col-md-10">
+        <h3>Tickets Dashboard </h3>
+     
+   
+        <br>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped table-hover">
+              <tr>
+                <th>Customer Name</th>
+                <th class="text-center">Customer Email</th>
+                <th class="text-center">Ticket Priority</th>
+                <th class="text-center">Ticket Description</th>
+                <th class="text-center"></th>
+                <th class="text-center"></th>
+              </tr>
+             
+                  <tr>
+                    <tr *ngFor="let item of ticket">
+                      <td class="text-center">{{ item.name }}</td>
+                      <td class="text-center">{{ item.email }}</td>
+                          <td class="text-center">{{ item.ticketPriority }}</td>
+                          <td class="text-center">{{ item.ticketDescription }}</td>
+                        
+                        <!-- <% if(ticket[count].ticketStatus == 'Cancelled'){ }} -->
+                        <!--NEED TO FIX THIS-->
+                          <td *ngIf="item.ticketStatus == 'Cancelled'; else elseBlock" class="text-center" colspan="2">
+                            <a class="btn btn-success btn-sm">
+                              Ticket Status Cancelled</a>      
+                          </td>                         
+                          <ng-template #elseBlock>                                                                         
+                          <td class="text-center">
+                            <button [routerLink]="['/ticketlist/edit/', item._id]" class="btn bg-primary btn-primary btn-sm"><i class="fas fa-pencil-alt px-3"></i>Edit</button>
+                                
+                        </td>                          
+                      <td class="text-center">
+                        <a (click)="deleteMethod(item._id)" class="btn btn-danger btn sm" ><i class="fas fa-trash-alt"></i>Delete</a>
+                          
+                      </td>                      
+                    </ng-template>   
+                    </tr>          
+            </table>            
+        </div>
+         <div class="col-md-offset-1 col-md-10 text-center">
+          <ul class="pagination pagination-lg pager" id="myPager"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <app-footer></app-footer>

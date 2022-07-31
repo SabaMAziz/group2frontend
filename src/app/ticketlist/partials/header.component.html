@@ -1,0 +1,50 @@
+<!-- Group 2 -->
+
+     <!-- Main Nav bar-->
+     <nav class="navbar navbar-inverse" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+
+    <div class="navbar-header">
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <img src="/assets/logo.jpg" alt="logo" style="width:90px;">
+
+        <a class="navbar-brand" routerLink="/"><i class="fa fa-bookmark-o"></i> Ready2Help</a>
+      </div> 
+   
+      <!-- Collect the nav links, forms, and other content for toggling -->
+       <div class="collapse navbar-collapse navbar-ex1-collapse"> 
+        <ul class="nav navbar-nav navbar-right">
+          
+            <li class="active"><a routerLink="/"><i class="fa fa-home fa-lg"></i> Home</a></li>
+      
+          
+            <li class="active"><a routerLink="/ticketlist/add"><i class="fa fa-book fa-lg">
+            </i> Create A Ticket</a></li>
+           
+              <li><a routerLink="/ticketlist/list"><i class="fa fa-book fa-lg">
+              </i> Tickets Dashboard</a></li>
+
+
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/users">
+                  <i class="fas fa-user"></i>Users
+                </a>
+                </li>
+
+                <li class="nav-item">
+              <a *ngIf="auth.username != null" class="nav-link" (click)="logout()">Sign Out  ({{ auth.username}})</a>
+              <a *ngIf="auth.username == null" class="nav-link" routerLink="/users/signin"><i class="fa fa-home fa-lg"></i>SignIn</a>
+            </li>
+        </ul>                         
+      </div>
+    </nav> 
+  
+
+
+
+
