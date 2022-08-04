@@ -9,8 +9,8 @@ import { ResponseModel } from "./response.model";
 import { environment } from "src/environments/environment";
 
 
-const PROTOCOL = "http";
-const PORT = 3000;
+// const PROTOCOL = "http";
+// const PORT = 3000;
 
 @Injectable()
 export class RestDataSource {
@@ -19,7 +19,7 @@ export class RestDataSource {
     auth_token: string;
 
     constructor(private http: HttpClient) {
-        this.baseUrl = this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/`;
+        this.baseUrl = environment.apiurl;
     }
 
     getTicketList(): Observable<Tickets[]> {
