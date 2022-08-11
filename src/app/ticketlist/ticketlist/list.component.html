@@ -9,54 +9,65 @@ list.ejs
 
 <!-- MAIN CONTENT -->
 <div class="container">
-    <div class="row">
-      <div class="col-md-offset-1 col-md-10">
-        <h3>Tickets Dashboard </h3>
-     
-   
-        <br>
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped table-hover">
-              <tr>
-                <th>Customer Name</th>
-                <th class="text-center">Customer Email</th>
-                <th class="text-center">Ticket Priority</th>
-                <th class="text-center">Ticket Description</th>
-                <th class="text-center"></th>
-                <th class="text-center"></th>
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <h3>Tickets Dashboard </h3>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Customer Name</th>
+              <th scope="col" class="text-center">Customer Email</th>
+              <th scope="col" class="text-center">Ticket Priority</th>
+              <th scope="col" class="text-center">Ticket Description</th>
+              <th scope="col" class="text-center"></th>
+            </tr>
+          </thead>
+
+
+          <tbody>
+            <ng-template ngFor let-item [ngForOf]="tickets" let-i="index">
+              <tr [ngClass]="
+              {'bg-primary' : item.ticketPriority === 'urgent'  && item.ticketStatus !== 'cancelled'
+              , 'bg-danger' : item.ticketPriority === 'very high' && item.ticketStatus !== 'cancelled'
+              , 'bg-warning' : item.ticketPriority === 'high' && item.ticketStatus !== 'cancelled'
+              , 'bg-info' : item.ticketPriority === 'medium' && item.ticketStatus !== 'cancelled'
+              , 'bg-light' : item.ticketPriority === 'low' && item.ticketStatus !== 'cancelled'
+              , 'bg-dark' : item.ticketStatus === 'cancelled'
+            }">
+                <td>{{ item.name }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.ticketPriority }}</td>
+                <td>{{ item.ticketDescription }}</td>
+
+                <!-- <% if(ticket[count].ticketStatus == 'cancelled'){ }} -->
+                <!--NEED TO FIX THIS-->
+                <td *ngIf="item.ticketStatus == 'cancelled'; else elseBlock">
+                  <a class="btn">
+                    Ticket Status cancelled</a>
+                </td>
+                <ng-template #elseBlock>
+                  <td>
+                    <button [routerLink]="['/ticketlist/edit/', item._id]"
+                      class="btn bg-primary btn-primary btn-sm mr-2"><i
+                        class="fas fa-pencil-alt px-3 mr-2"></i>Edit</button>
+
+                    <button (click)="deleteMethod(item._id)" class="btn btn-danger btn sm"><i
+                        class="fas fa-trash-alt mr-2"></i>Cancel</button>
+
+                  </td>
+                </ng-template>
               </tr>
-             
-                  <tr>
-                    <tr *ngFor="let item of ticket">
-                      <td class="text-center">{{ item.name }}</td>
-                      <td class="text-center">{{ item.email }}</td>
-                          <td class="text-center">{{ item.ticketPriority }}</td>
-                          <td class="text-center">{{ item.ticketDescription }}</td>
-                        
-                        <!-- <% if(ticket[count].ticketStatus == 'Cancelled'){ }} -->
-                        <!--NEED TO FIX THIS-->
-                          <td *ngIf="item.ticketStatus == 'Cancelled'; else elseBlock" class="text-center" colspan="2">
-                            <a class="btn btn-success btn-sm">
-                              Ticket Status Cancelled</a>      
-                          </td>                         
-                          <ng-template #elseBlock>                                                                         
-                          <td class="text-center">
-                            <button [routerLink]="['/ticketlist/edit/', item._id]" class="btn bg-primary btn-primary btn-sm"><i class="fas fa-pencil-alt px-3"></i>Edit</button>
-                                
-                        </td>                          
-                      <td class="text-center">
-                        <a (click)="deleteMethod(item._id)" class="btn btn-danger btn sm" ><i class="fas fa-trash-alt"></i>Delete</a>
-                          
-                      </td>                      
-                    </ng-template>   
-                    </tr>          
-            </table>            
-        </div>
-         <div class="col-md-offset-1 col-md-10 text-center">
-          <ul class="pagination pagination-lg pager" id="myPager"></ul>
-        </div>
+            </ng-template>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-offset-1 col-md-10 text-center">
+        <ul class="pagination pagination-lg pager" id="myPager"></ul>
       </div>
     </div>
   </div>
-  
-  <app-footer></app-footer>
+</div>
+
+<app-footer></app-footer>
