@@ -14,7 +14,7 @@ export class TicketsRepository {
     }
 
     getTickets(): Tickets[] {
-        return this.Tickets;
+        return this.Tickets.filter(item => item.ticketStatus);
     }
 
     getItem(id: string): Tickets {

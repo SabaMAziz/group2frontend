@@ -22,7 +22,8 @@ July 25th, 2022 -->
                         placeholder="Enter your name"
                         name="name" 
                         [(ngModel)]="item.name"
-                        required>
+                        required
+                        disabled>
                 </div>
                 <div class="form-group">
                     <label for="emailTextField">Email</label>
@@ -43,8 +44,9 @@ July 25th, 2022 -->
                         [(ngModel)]="item.ticketStatus"
                         required>                
                         <option selected value="New" name="New">New</option>
+                        <option value="Resolved" name="Resolved">In Progress</option>
                         <option value="Cancelled" name="Cancelled">Cancelled</option>
-                        <option value="Resolved" name="Resolved">Resolved</option>
+                        <option value="Resolved" name="Resolved">Closed</option>
                     </select>
                 </div>
                 <div class="form-group">
