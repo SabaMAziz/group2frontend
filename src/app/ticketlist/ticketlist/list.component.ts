@@ -20,7 +20,7 @@ export class ListComponent {
         { }
 
         get ticket():Tickets[] {
-            return this.repository.getTickets();
+            return this.repository.getTickets().filter(item => this.showComplete || item.ticketStatus !== "Cancelled" );
         }
 
         deleteMethod(id: string) {
@@ -29,4 +29,5 @@ export class ListComponent {
                 this.router.navigateByUrl("ticketlist/list");
             }
         }
+        showComplete: boolean = false;
 }
