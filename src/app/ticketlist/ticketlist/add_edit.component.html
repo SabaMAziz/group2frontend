@@ -78,12 +78,13 @@ July 25th, 2022 -->
                 </div>
                 <div class="form-group"> <!--THERES SOMETHING NOT BEING READ WITH COMMENT -- PATH IS RIGHT, BUT SOMETHING IS WRONG -- think its something with the name of field, naming is same as backend but something is wonky-->
                     <label for="priorityTextField">Comments</label>
-                    <input type="text" class="form-control"
+                    <textarea type="text" class="form-control"
                     id="commentText"
                     placeholder="comment in here"
-                    name="iteration.comment" 
+                    name="iteration_comment" 
                     [(ngModel)]="item.iteration.comment" 
-                    required>
+                    value="item.iteration.comment"
+                    required></textarea>
                 </div>
 
                 <br/>

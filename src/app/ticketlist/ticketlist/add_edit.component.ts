@@ -1,6 +1,6 @@
 import { Component, Sanitizer } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import {Router, ActivatedRoute} from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Tickets } from "src/app/model/tickets.model";
 import { TicketsRepository } from "src/app/model/tickets.repository";
 import { User } from "src/app/model/user.model";
@@ -19,14 +19,20 @@ export class AddEditComponent {
 
     editing: boolean = false;
     item: Tickets = new Tickets();
+    //auth: AuthService = new AuthService(this.datasource);
+    iteration: Iteration = {        
+            username: this.auth.username,
+            date: new Date,
+            comment: ""        
+    }
     // Ticket: 
     
 
     constructor(private repository: TicketsRepository,
                     private router: Router,
                     activeRoute: ActivatedRoute,                    
-                    private datasource: RestDataSource)
-     {
+                    private datasource: RestDataSource,
+                    private auth: AuthService)     {
         if (activeRoute.snapshot.params["mode"] == "delete"){
             this.deleteItem(activeRoute.snapshot.params["id"]);
         }
@@ -43,14 +49,14 @@ export class AddEditComponent {
 
     save(form: NgForm){
         console.log("form submitting");                                                
-        let auth = new AuthService(this.datasource)        
-        let comment = "test comment";
-        let user = auth.activeUser;
+        let auth = new AuthService(this.datasource)             
+        this.iteration.comment = "test comment";        
+        let user = this.iteration.username;
         console.log(user);
         //NEED TO BE ABLE TO GET USER WHO SUBMITTED FORM
         // console.log(this.item.iteration.comment);
         // console.log(user)
-        this.repository.saveTickets(this.item, user, comment);    //not sure about this
+        this.repository.saveTickets(this.item, this.iteration.username, this.iteration.comment);    //not sure about this
         this.router.navigateByUrl("ticketlist/list");
     }
     
