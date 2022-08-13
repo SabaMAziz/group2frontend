@@ -76,15 +76,14 @@ July 25th, 2022 -->
                     [(ngModel)]="item.ticketPriority"
                     required>
                 </div>
-                <div class="form-group"> <!--THERES SOMETHING NOT BEING READ WITH COMMENT -- PATH IS RIGHT, BUT SOMETHING IS WRONG -- think its something with the name of field, naming is same as backend but something is wonky-->
+                <div class="form-group"> 
                     <label for="priorityTextField">Comments</label>
-                    <textarea type="text" class="form-control"
+                    <input type="text" class="form-control"
                     id="commentText"
-                    placeholder="comment in here"
-                    name="iteration_comment" 
-                    [(ngModel)]="item.iteration.comment" 
-                    value="item.iteration.comment"
-                    required></textarea>
+                    placeholder="add comment here"
+                    name="comment" 
+                    [(ngModel)]="item.comment"                     
+                    required>
                 </div>
 
                 <br/>

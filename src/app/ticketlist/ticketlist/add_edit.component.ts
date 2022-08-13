@@ -49,14 +49,14 @@ export class AddEditComponent {
 
     save(form: NgForm){
         console.log("form submitting");                                                
-        let auth = new AuthService(this.datasource)             
-        this.iteration.comment = "test comment";        
+        //let auth = new AuthService(this.datasource)             
+        //this.iteration.comment = this.item.iteration.comment;        
         let user = this.iteration.username;
         console.log(user);
         //NEED TO BE ABLE TO GET USER WHO SUBMITTED FORM
         // console.log(this.item.iteration.comment);
         // console.log(user)
-        this.repository.saveTickets(this.item, this.iteration.username, this.iteration.comment);    //not sure about this
+        this.repository.saveTickets(this.item, this.auth.username);    //not sure about this
         this.router.navigateByUrl("ticketlist/list");
     }
     

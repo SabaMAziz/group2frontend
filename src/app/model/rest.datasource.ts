@@ -41,9 +41,10 @@ export class RestDataSource {
             }));
     }
 
-    updateTickets(item: Tickets, user: string, comment: string): Observable<Tickets> {            
+    updateTickets(item: Tickets, user: string): Observable<Tickets> {            
         console.log("still working");
-        let iter = new Iteration(user, new Date, comment); //may be wrong not sure yet 
+        //let comment = item.comment;
+        let iter = new Iteration(user, new Date, item.comment); //may be wrong not sure yet 
         item.itArray.push(iter);
         console.log(item.itArray);
         return this.http.put<Tickets>(`${this.baseUrl} ticketlist/edit/${item._id})`,

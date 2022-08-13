@@ -1,4 +1,4 @@
-import { Iteration } from './iteration.model';
+//import { Iteration } from './iteration.model';
 
 export class Tickets {
 
@@ -10,7 +10,22 @@ export class Tickets {
            public ticketDescription?: String,
            public recordnum?: Date,
            public ticketPriority?: String,
-           public iteration?: Iteration,
+           public comment?: string,
+           //  public iteration?: Iteration,
            public itArray?: Iteration []
-    ) {}        
+    ) {}            
+}
+
+export class Iteration{
+
+    // public username: string;
+    // public date: Date;
+    // public comment: string;
+    
+    constructor(public username?: string, public date?: Date, public comment?: string)
+    {
+      // this.username = username;
+      // this.date = date;
+      // this.comment = comment;
+    }
 }

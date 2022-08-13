@@ -23,12 +23,13 @@ export class TicketsRepository {
         return (this.Tickets.find(item => item._id === id)!);
     }
 
-    saveTickets(item: Tickets, user: string, comment: string) {        //NOT WORKING HERE NOW
+    saveTickets(item: Tickets, user: string) {        //NOT WORKING HERE NOW
         console.log("working here");
+        console.log(item);
         if (item._id == null || item._id == "") {
             this.dataSource.insertTickets(item).subscribe(p => this.Tickets.push(p));
-        }else {
-            this.dataSource.updateTickets(item, user, comment).subscribe(p => {
+        }else {            
+            this.dataSource.updateTickets(item, user).subscribe(p => {
                 this.Tickets.splice(this.Tickets.findIndex(i => i._id == item._id), 1, item);
             });
         }
