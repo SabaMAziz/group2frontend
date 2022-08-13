@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable} from "rxjs";
+import { Observable, of} from "rxjs";
+import { map, catchError} from "rxjs/operators";
 import { HttpHeaders } from '@angular/common/http';
 import { Tickets} from './tickets.model';
 import { User } from "./user.model";
-import { catchError, map } from "rxjs/operators";
 import { ResponseModel } from "./response.model";
 import { environment } from "src/environments/environment";
 
@@ -20,6 +20,7 @@ export class RestDataSource {
 
     constructor(private http: HttpClient) {
         this.baseUrl = environment.apiurl;
+        console.log(this.baseUrl);
     }
 
     getTicketList(): Observable<Tickets[]> {
@@ -40,18 +41,22 @@ export class RestDataSource {
             }));
     }
 
-    updateTickets(item: Tickets): Observable<Tickets> {
-        return this.http.put<Tickets>(`${this.baseUrl} ticketlist/edit/${item._id})`,
-        item,
+    updateTickets(item: Tickets): Observable<ResponseModel> {
+        return this.http.put<ResponseModel>(`${this.baseUrl} ticketlist/edit/${item._id})`,
+        item, this.getOptions()).pipe(map(response => {
+            return response;
+        }),
+        catchError(error => { return of(error.error)}));
         
-        this.getOptions());
+       
     }
 
     deleteTickets(id: string): Observable<ResponseModel> {
-        return this.http.delete<any>(`${this.baseUrl}ticketlist/delete/${id}`,
+        return this.http.delete<ResponseModel>(`${this.baseUrl}ticketlist/delete/${id}`,
         this.getOptions()).pipe(map(response => {
             return response;
-        }));
+        }),
+        catchError(error => {return of(error.error)}));
     }
 
     authenticate(user: string, pass: string): Observable<ResponseModel> {
@@ -66,9 +71,9 @@ export class RestDataSource {
             this.auth_token = response.sucess ? response.token : null;
             return response;
         }),
-         catchError(error => {
-            console.log(error);
-            return (error.error)}));
+         catchError(error => { return of(error.error)}));
+            //console.log(error);
+           
     }
 
     signupUser(user: User): Observable<ResponseModel> {
