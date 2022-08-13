@@ -8,9 +8,11 @@ July 25th, 2022 -->
 <div class="container">
     <div class="row">
         <div class="offset-md-3 col-md-6">
+
             <h1> {{editing ? "Edit": "Create" }} Ticket</h1>
 
-            <form ngNativeValidate #form="ngForm" (ngSubmit)="save(form)">
+
+            <form ngNativeValidate #form="ngForm" (ngSubmit)="save(form)"> <!--NEED TO GET CURRENT USER AND COMMENT AND PASS THEM IN HERE TOO -->
                 <div class="form-group">
                     <input type="hidden"
                         name="id"
@@ -72,6 +74,15 @@ July 25th, 2022 -->
                     placeholder="Low"
                     name="ticketPriority" 
                     [(ngModel)]="item.ticketPriority"
+                    required>
+                </div>
+                <div class="form-group"> <!--THERES SOMETHING NOT BEING READ WITH COMMENT -- PATH IS RIGHT, BUT SOMETHING IS WRONG -- think its something with the name of field, naming is same as backend but something is wonky-->
+                    <label for="priorityTextField">Comments</label>
+                    <input type="text" class="form-control"
+                    id="commentText"
+                    placeholder="comment in here"
+                    name="iteration.comment" 
+                    [(ngModel)]="item.iteration.comment" 
                     required>
                 </div>
 

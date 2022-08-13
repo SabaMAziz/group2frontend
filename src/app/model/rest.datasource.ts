@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable} from "rxjs";
 import { HttpHeaders } from '@angular/common/http';
 import { Tickets} from './tickets.model';
+import { Iteration } from './iteration.model';
 import { User } from "./user.model";
 import { catchError, map } from "rxjs/operators";
 import { ResponseModel } from "./response.model";
@@ -40,18 +41,20 @@ export class RestDataSource {
             }));
     }
 
-    updateTickets(item: Tickets): Observable<Tickets> {
+    updateTickets(item: Tickets, user: String, comment: String): Observable<Tickets> {            
+        console.log("still working");
+        let iter = new Iteration(user, new Date, comment); //may be wrong not sure yet 
+        item.itArray.push(iter);
+        console.log(item.itArray);
         return this.http.put<Tickets>(`${this.baseUrl} ticketlist/edit/${item._id})`,
-        item,
-        
+        item,        
         this.getOptions());
     }
 
-    deleteTickets(id: string): Observable<ResponseModel> {
-        return this.http.delete<any>(`${this.baseUrl}ticketlist/delete/${id}`,
-        this.getOptions()).pipe(map(response => {
-            return response;
-        }));
+    deleteTickets(item: Tickets): Observable<Tickets> {
+        return this.http.put<Tickets>(`${this.baseUrl} ticketlist/edit/${item._id})`,
+        item,        
+        this.getOptions());
     }
 
     authenticate(user: string, pass: string): Observable<ResponseModel> {

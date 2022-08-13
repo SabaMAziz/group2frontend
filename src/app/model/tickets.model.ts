@@ -1,3 +1,5 @@
+import { Iteration } from './iteration.model';
+
 export class Tickets {
 
     constructor(
@@ -7,6 +9,8 @@ export class Tickets {
            public ticketStatus?: String,
            public ticketDescription?: String,
            public recordnum?: Date,
-           public ticketPriority?: String
+           public ticketPriority?: String,
+           public iteration?: Iteration,
+           public itArray?: Iteration []
     ) {}        
 }

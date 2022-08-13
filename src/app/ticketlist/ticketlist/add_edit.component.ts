@@ -3,6 +3,8 @@ import { NgForm } from "@angular/forms";
 import {Router, ActivatedRoute} from "@angular/router";
 import { Tickets } from "src/app/model/tickets.model";
 import { TicketsRepository } from "src/app/model/tickets.repository";
+import { User } from "src/app/model/user.model";
+import { Iteration } from 'src/app/model/iteration.model';
 
 @Component ({
     selector: "add-edit",
@@ -36,12 +38,17 @@ export class AddEditComponent {
 
     save(form: NgForm){
         console.log("form submitting");
-        this.repository.saveTickets(this.item);    
+        let comment = "test comment";
+        let user = "test user";
+        //NEED TO BE ABLE TO GET USER WHO SUBMITTED FORM
+        // console.log(this.item.iteration.comment);
+        // console.log(user)
+        this.repository.saveTickets(this.item, user, comment);    
         this.router.navigateByUrl("ticketlist/list");
     }
     
     private deleteItem(id: string){
-        this.repository.deleteTickets(id);
+        // this.repository.deleteTickets(id);
         this.router.navigateByUrl("ticketlist/list");
     }
 }     

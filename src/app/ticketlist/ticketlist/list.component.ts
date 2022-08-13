@@ -23,9 +23,9 @@ export class ListComponent {
             return this.repository.getTickets();
         }
 
-        deleteMethod(id: string) {
+        deleteMethod(item: Tickets) {
             if(confirm('Do you want to delete this ticket?')) {
-                this.repository.setToCancelled(id);
+                this.repository.setToCancelled(item);
                 this.router.navigateByUrl("ticketlist/list");
             }
         }
