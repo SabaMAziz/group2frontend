@@ -47,13 +47,13 @@ export class RestDataSource {
         let iter = new Iteration(user, new Date, item.comment); //may be wrong not sure yet 
         item.itArray.push(iter);
         console.log(item.itArray);
-        return this.http.put<Tickets>(`${this.baseUrl} ticketlist/edit/${item._id})`,
+        return this.http.put<Tickets>(this.baseUrl + "ticketlist/edit/"+ item._id,
         item,        
         this.getOptions());
     }
 
     deleteTickets(item: Tickets): Observable<Tickets> {
-        return this.http.put<Tickets>(`${this.baseUrl} ticketlist/edit/${item._id})`,
+        return this.http.put<Tickets>(`${this.baseUrl}ticketlist/edit/${item._id})`,
         item,        
         this.getOptions());
     }
