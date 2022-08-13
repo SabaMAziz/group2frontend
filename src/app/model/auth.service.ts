@@ -16,7 +16,7 @@ import { ResponseModel } from "./response.model";
     authenticate(username: string, password: string): Observable<ResponseModel> {
         return this.datasource.authenticate(username, password)
             .pipe(map(response => {
-                if(response)
+                if(response.sucess)
                 {
                     this.username = username;
                 }

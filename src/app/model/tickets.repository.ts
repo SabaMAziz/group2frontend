@@ -34,7 +34,7 @@ export class TicketsRepository {
 
     deleteTickets(id: string) {
         this.dataSource.deleteTickets(id).subscribe(response => {
-            if (response.success) {
+            if (response.sucess) {
                 this.Tickets.splice(this.Tickets.findIndex(item => item._id == id),1);
             }else {
                 alert(response.message);
