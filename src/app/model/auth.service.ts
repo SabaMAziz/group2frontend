@@ -11,6 +11,7 @@ import { ResponseModel } from "./response.model";
         public username: string;
     private _redirectUrl: string;
 
+
     constructor(private datasource: RestDataSource) { }
 
     authenticate(username: string, password: string): Observable<ResponseModel> {
