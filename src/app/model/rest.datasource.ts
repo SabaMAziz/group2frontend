@@ -9,10 +9,6 @@ import { catchError, map } from "rxjs/operators";
 import { ResponseModel } from "./response.model";
 import { environment } from "src/environments/environment";
 
-
-// const PROTOCOL = "http";
-// const PORT = 3000;
-
 @Injectable()
 export class RestDataSource {
 
@@ -42,9 +38,8 @@ export class RestDataSource {
     }
 
     updateTickets(item: Tickets, user: string): Observable<Tickets> {            
-        console.log("still working");
-        //let comment = item.comment;
-        let iter = new Iteration(user, new Date, item.comment); //may be wrong not sure yet 
+        console.log("still working");        
+        let iter = new Iteration(user, new Date, item.comment); 
         item.itArray.push(iter);
         console.log(item.itArray);
         return this.http.put<Tickets>(this.baseUrl + "ticketlist/edit/"+ item._id,

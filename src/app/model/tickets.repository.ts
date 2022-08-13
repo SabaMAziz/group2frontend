@@ -23,7 +23,7 @@ export class TicketsRepository {
         return (this.Tickets.find(item => item._id === id)!);
     }
 
-    saveTickets(item: Tickets, user: string) {        //NOT WORKING HERE NOW
+    saveTickets(item: Tickets, user: string) {        
         console.log("working here");
         console.log(item);
         if (item._id == null || item._id == "") {

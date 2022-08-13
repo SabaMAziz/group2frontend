@@ -18,14 +18,12 @@ import { Injectable } from "@angular/core";
 export class AddEditComponent {
 
     editing: boolean = false;
-    item: Tickets = new Tickets();
-    //auth: AuthService = new AuthService(this.datasource);
+    item: Tickets = new Tickets();    
     iteration: Iteration = {        
             username: this.auth.username,
             date: new Date,
             comment: ""        
-    }
-    // Ticket: 
+    }    
     
 
     constructor(private repository: TicketsRepository,
@@ -48,15 +46,10 @@ export class AddEditComponent {
     }
 
     save(form: NgForm){
-        console.log("form submitting");                                                
-        //let auth = new AuthService(this.datasource)             
-        //this.iteration.comment = this.item.iteration.comment;        
+        console.log("form submitting");                                                        
         let user = this.iteration.username;
-        console.log(user);
-        //NEED TO BE ABLE TO GET USER WHO SUBMITTED FORM
-        // console.log(this.item.iteration.comment);
-        // console.log(user)
-        this.repository.saveTickets(this.item, this.auth.username);    //not sure about this
+        console.log(user);        
+        this.repository.saveTickets(this.item, this.auth.username);   
         this.router.navigateByUrl("ticketlist/list");
     }
     
