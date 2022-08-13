@@ -4,13 +4,10 @@ import { Observable, of} from "rxjs";
 import { map, catchError} from "rxjs/operators";
 import { HttpHeaders } from '@angular/common/http';
 import { Tickets} from './tickets.model';
+import { Iteration } from './iteration.model';
 import { User } from "./user.model";
 import { ResponseModel } from "./response.model";
 import { environment } from "src/environments/environment";
-
-
-// const PROTOCOL = "http";
-// const PORT = 3000;
 
 @Injectable()
 export class RestDataSource {
@@ -20,7 +17,7 @@ export class RestDataSource {
 
     constructor(private http: HttpClient) {
         this.baseUrl = environment.apiurl;
-        console.log(this.baseUrl);
+
     }
 
     getTicketList(): Observable<Tickets[]> {
@@ -41,22 +38,20 @@ export class RestDataSource {
             }));
     }
 
-    updateTickets(item: Tickets): Observable<ResponseModel> {
-        return this.http.put<ResponseModel>(`${this.baseUrl} ticketlist/edit/${item._id})`,
-        item, this.getOptions()).pipe(map(response => {
-            return response;
-        }),
-        catchError(error => { return of(error.error)}));
-        
-       
+    updateTickets(item: Tickets, user: string): Observable<Tickets> {            
+        console.log("still working");        
+        let iter = new Iteration(user, new Date, item.comment); 
+        item.itArray.push(iter);
+        console.log(item.itArray);
+        return this.http.put<Tickets>(this.baseUrl + "ticketlist/edit/"+ item._id,
+        item,        
+        this.getOptions());
     }
 
-    deleteTickets(id: string): Observable<ResponseModel> {
-        return this.http.delete<ResponseModel>(`${this.baseUrl}ticketlist/delete/${id}`,
-        this.getOptions()).pipe(map(response => {
-            return response;
-        }),
-        catchError(error => {return of(error.error)}));
+    deleteTickets(item: Tickets): Observable<Tickets> {
+        return this.http.put<Tickets>(`${this.baseUrl}ticketlist/edit/${item._id})`,
+        item,        
+        this.getOptions());
     }
 
     authenticate(user: string, pass: string): Observable<ResponseModel> {
