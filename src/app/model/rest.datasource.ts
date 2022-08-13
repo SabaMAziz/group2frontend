@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable} from "rxjs";
+import { Observable, of} from "rxjs";
+import { map, catchError} from "rxjs/operators";
 import { HttpHeaders } from '@angular/common/http';
 import { Tickets} from './tickets.model';
 import { Iteration } from './iteration.model';
 import { User } from "./user.model";
-import { catchError, map } from "rxjs/operators";
 import { ResponseModel } from "./response.model";
 import { environment } from "src/environments/environment";
 
@@ -17,6 +17,7 @@ export class RestDataSource {
 
     constructor(private http: HttpClient) {
         this.baseUrl = environment.apiurl;
+
     }
 
     getTicketList(): Observable<Tickets[]> {
@@ -65,9 +66,9 @@ export class RestDataSource {
             this.auth_token = response.sucess ? response.token : null;
             return response;
         }),
-         catchError(error => {
-            console.log(error);
-            return (error.error)}));
+         catchError(error => { return of(error.error)}));
+            //console.log(error);
+           
     }
 
     signupUser(user: User): Observable<ResponseModel> {
