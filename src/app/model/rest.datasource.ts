@@ -41,7 +41,7 @@ export class RestDataSource {
             }));
     }
 
-    updateTickets(item: Tickets, user: String, comment: String): Observable<Tickets> {            
+    updateTickets(item: Tickets, user: string, comment: string): Observable<Tickets> {            
         console.log("still working");
         let iter = new Iteration(user, new Date, comment); //may be wrong not sure yet 
         item.itArray.push(iter);

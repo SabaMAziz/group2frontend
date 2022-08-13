@@ -23,7 +23,7 @@ export class TicketsRepository {
         return (this.Tickets.find(item => item._id === id)!);
     }
 
-    saveTickets(item: Tickets, user: String, comment: String) {        //NOT WORKING HERE NOW
+    saveTickets(item: Tickets, user: string, comment: string) {        //NOT WORKING HERE NOW
         console.log("working here");
         if (item._id == null || item._id == "") {
             this.dataSource.insertTickets(item).subscribe(p => this.Tickets.push(p));

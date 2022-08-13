@@ -5,6 +5,10 @@ import { Tickets } from "src/app/model/tickets.model";
 import { TicketsRepository } from "src/app/model/tickets.repository";
 import { User } from "src/app/model/user.model";
 import { Iteration } from 'src/app/model/iteration.model';
+import { AuthService } from "src/app/model/auth.service";
+import { HttpClient, HttpHandler } from "@angular/common/http";
+import { RestDataSource } from "src/app/model/rest.datasource";
+import { Injectable } from "@angular/core";
 
 @Component ({
     selector: "add-edit",
@@ -20,7 +24,8 @@ export class AddEditComponent {
 
     constructor(private repository: TicketsRepository,
                     private router: Router,
-                    activeRoute: ActivatedRoute)
+                    activeRoute: ActivatedRoute,                    
+                    private datasource: RestDataSource)
      {
         if (activeRoute.snapshot.params["mode"] == "delete"){
             this.deleteItem(activeRoute.snapshot.params["id"]);
@@ -37,13 +42,15 @@ export class AddEditComponent {
     }
 
     save(form: NgForm){
-        console.log("form submitting");
+        console.log("form submitting");                                                
+        let auth = new AuthService(this.datasource)        
         let comment = "test comment";
-        let user = "test user";
+        let user = auth.activeUser;
+        console.log(user);
         //NEED TO BE ABLE TO GET USER WHO SUBMITTED FORM
         // console.log(this.item.iteration.comment);
         // console.log(user)
-        this.repository.saveTickets(this.item, user, comment);    
+        this.repository.saveTickets(this.item, user, comment);    //not sure about this
         this.router.navigateByUrl("ticketlist/list");
     }
     

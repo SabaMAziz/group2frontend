@@ -1,10 +1,10 @@
 export class Iteration{
 
-  public username: String;
+  public username: string;
   public date: Date;
-  public comment: String;
+  public comment: string;
   
-  constructor(username: String, date: Date, comment: String)
+  constructor(username: string, date: Date, comment: string)
   {
     this.username = username;
     this.date = date;
