@@ -34,17 +34,17 @@ export class TicketsRepository {
             });
         }
     }
-
+/*
     deleteTickets(id: string) {
         this.dataSource.deleteTickets(id).subscribe(response => {
             if (response.sucess) {
                 this.Tickets.splice(this.Tickets.findIndex(item => item._id == id),1);
             }else {
-                alert(response.message);
+                alert(response.comment);
             }
         });    
     }
-
+*/
     setToCancelled(item: Tickets){        
         item.ticketStatus = 'Cancelled';
         this.dataSource.deleteTickets(item);
