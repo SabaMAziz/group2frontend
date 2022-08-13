@@ -1,7 +1,7 @@
 export class ResponseModel {
 
     constructor(
-        public success?: boolean,
+        public sucess?: boolean,
         public message?: string
     ){}
 

@@ -27,7 +27,7 @@ export class SignUpComponent {
                     .subscribe(response => {
                         console.log(response);
                         
-                        if (response.success) {
+                        if (response.sucess) {
                             alert(response.message);
                             this.router.navigateByUrl("/users/signin");
                         }

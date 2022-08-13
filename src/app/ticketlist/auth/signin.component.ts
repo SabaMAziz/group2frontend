@@ -24,7 +24,7 @@ export class SignInComponent  {
             console.log("still working");
             this.auth.authenticate(this.username, this.password)
                 .subscribe(response => {
-                    if (response.success) {
+                    if (response.sucess) {
                         this.router.navigateByUrl(this.auth.redirectUrl || "");
                     }
                     this.message = response.message;

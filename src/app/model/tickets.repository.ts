@@ -35,15 +35,15 @@ export class TicketsRepository {
         }
     }
 
-    // deleteTickets(id: string) {
-    //     this.dataSource.deleteTickets(id).subscribe(response => {
-    //         if (response.success) {
-    //             this.Tickets.splice(this.Tickets.findIndex(item => item._id == id),1);
-    //         }else {
-    //             alert(response.message);
-    //         }
-    //     });    
-    // }
+    deleteTickets(id: string) {
+        this.dataSource.deleteTickets(id).subscribe(response => {
+            if (response.sucess) {
+                this.Tickets.splice(this.Tickets.findIndex(item => item._id == id),1);
+            }else {
+                alert(response.message);
+            }
+        });    
+    }
 
     setToCancelled(item: Tickets){        
         item.ticketStatus = 'Cancelled';
