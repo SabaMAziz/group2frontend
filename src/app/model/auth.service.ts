@@ -6,27 +6,26 @@ import { User } from './user.model';
 import { ResponseModel } from './response.model';
 
 @Injectable()
-    export class AuthService {
+export class AuthService {
+  public username: string;
+  private _redirectUrl: string;
 
-        public username: string;
-    private _redirectUrl: string;
+  constructor(private datasource: RestDataSource) {}
 
-    constructor(private datasource: RestDataSource) { }
+  authenticate(username: string, password: string): Observable<ResponseModel> {
+    return this.datasource.authenticate(username, password).pipe(
+      map((response) => {
+        if (response) {
+          this.username = username;
+        }
+        return response;
+      })
+    );
+  }
 
-    authenticate(username: string, password: string): Observable<ResponseModel> {
-        return this.datasource.authenticate(username, password)
-            .pipe(map(response => {
-                if(response)
-                {
-                    this.username = username;
-                }
-                return response;
-            }));
-    }
-
-    signupUser(user: User): Observable<ResponseModel> {
-        return this.datasource.signupUser(user);
-    }
+  signupUser(user: User): Observable<ResponseModel> {
+    return this.datasource.signupUser(user);
+  }
 
   get authenticated(): boolean {
     return this.datasource.auth_token != null;
@@ -37,13 +36,13 @@ import { ResponseModel } from './response.model';
     this.datasource.auth_token = null;
   }
 
-    get redirectUrl(): string{
-        let result = this._redirectUrl;
-        this._redirectUrl = null;
-        return result;
-    }
+  get redirectUrl(): string {
+    let result = this._redirectUrl;
+    this._redirectUrl = null;
+    return result;
+  }
 
-    set redirectUrl(url: string){
-        this._redirectUrl = url;
-    }
+  set redirectUrl(url: string) {
+    this._redirectUrl = url;
+  }
 }

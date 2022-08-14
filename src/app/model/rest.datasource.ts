@@ -1,13 +1,16 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, of} from "rxjs";
-import { map, catchError} from "rxjs/operators";
+import { Observable} from "rxjs";
 import { HttpHeaders } from '@angular/common/http';
 import { Tickets} from './tickets.model';
-import { Iteration } from './iteration.model';
 import { User } from "./user.model";
+import { catchError, map } from "rxjs/operators";
 import { ResponseModel } from "./response.model";
 import { environment } from "src/environments/environment";
+
+
+// const PROTOCOL = "http";
+// const PORT = 3000;
 
 @Injectable()
 export class RestDataSource {
@@ -17,7 +20,6 @@ export class RestDataSource {
 
     constructor(private http: HttpClient) {
         this.baseUrl = environment.apiurl;
-
     }
 
     getTicketList(): Observable<Tickets[]> {
@@ -38,20 +40,18 @@ export class RestDataSource {
             }));
     }
 
-    updateTickets(item: Tickets, user: string): Observable<Tickets> {            
-        console.log("still working");        
-        let iter = new Iteration(user, new Date, item.comment); 
-        item.itArray.push(iter);
-        console.log(item.itArray);
-        return this.http.put<Tickets>(this.baseUrl + "ticketlist/edit/"+ item._id,
-        item,        
+    updateTickets(item: Tickets): Observable<Tickets> {
+        return this.http.put<Tickets>(`${this.baseUrl} ticketlist/edit/${item._id})`,
+        item,
+        
         this.getOptions());
     }
 
-    deleteTickets(item: Tickets): Observable<Tickets> {
-        return this.http.put<Tickets>(`${this.baseUrl}ticketlist/edit/${item._id})`,
-        item,        
-        this.getOptions());
+    deleteTickets(id: string): Observable<ResponseModel> {
+        return this.http.delete<any>(`${this.baseUrl}ticketlist/delete/${id}`,
+        this.getOptions()).pipe(map(response => {
+            return response;
+        }));
     }
 
     authenticate(user: string, pass: string): Observable<ResponseModel> {
@@ -66,9 +66,9 @@ export class RestDataSource {
             this.auth_token = response.sucess ? response.token : null;
             return response;
         }),
-         catchError(error => { return of(error.error)}));
-            //console.log(error);
-           
+         catchError(error => {
+            console.log(error);
+            return (error.error)}));
     }
 
     signupUser(user: User): Observable<ResponseModel> {
