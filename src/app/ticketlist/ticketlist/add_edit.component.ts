@@ -25,7 +25,7 @@ export class AddEditComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    debugger;
+    
     if (!this.authService.authenticated) {
       this.router.navigateByUrl('/users/signin');
     }
