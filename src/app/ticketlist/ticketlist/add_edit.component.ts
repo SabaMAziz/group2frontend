@@ -1,19 +1,29 @@
 import { Component, Sanitizer } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import {Router, ActivatedRoute} from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Tickets } from "src/app/model/tickets.model";
 import { TicketsRepository } from "src/app/model/tickets.repository";
+import { User } from "src/app/model/user.model";
+import { Iteration } from 'src/app/model/iteration.model';
+import { AuthService } from "src/app/model/auth.service";
+import { HttpClient, HttpHandler } from "@angular/common/http";
+import { RestDataSource } from "src/app/model/rest.datasource";
+import { Injectable } from "@angular/core";
 
-@Component({
-  selector: 'add-edit',
-  templateUrl: 'add_edit.component.html',
+@Component ({
+    selector: "add-edit",
+    templateUrl: "add_edit.component.html"
 })
 
 export class AddEditComponent {
 
     editing: boolean = false;
-    item: Tickets = new Tickets();
-    // Ticket: 
+    item: Tickets = new Tickets();    
+    iteration: Iteration = {        
+            username: this.auth.username,
+            date: new Date,
+            comment: ""        
+    }    
     
 
     constructor(private repository: TicketsRepository,
@@ -36,13 +46,15 @@ export class AddEditComponent {
     }
 
     save(form: NgForm){
-        console.log("form submitting");
-        this.repository.saveTickets(this.item);    
+        console.log("form submitting");                                                        
+        let user = this.iteration.username;
+        console.log(user);        
+        this.repository.saveTickets(this.item, this.auth.username);   
         this.router.navigateByUrl("ticketlist/list");
     }
     
     private deleteItem(id: string){
-        this.repository.deleteTickets(id);
+        // this.repository.deleteTickets(id);
         this.router.navigateByUrl("ticketlist/list");
     }
 }     
