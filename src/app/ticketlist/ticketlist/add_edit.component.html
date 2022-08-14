@@ -6,65 +6,87 @@ July 25th, 2022 -->
 <!-- Content for the Add_Edit page -->
 <app-header></app-header>
 <div class="container">
-  <div class="row">
-    <div class="offset-md-3 col-md-6">
-      <h1> {{editing ? "Edit": "Update Ticket" }} Item <span>{{item.ticketStatus}}</span></h1>
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <h1> {{editing ? "Edit": "Update  Ticket" }} Item</h1>
 
-      <form ngNativeValidate #form="ngForm" (ngSubmit)="save(form)">
-        <div class="form-group">
-          <input type="hidden" name="id" [(ngModel)]="item._id" required>
-          <label for="ticketTextField">Name</label>
-          <input type="text" class="form-control" id="ticketTextField" placeholder="Enter your name" name="name"
-            [(ngModel)]="item.name" required>
-        </div>
-        <div class="form-group">
-          <label for="emailTextField">Email</label>
-          <input type="email" class="form-control" id="emailTextField" placeholder="Enter your email" name="email"
-            [(ngModel)]="item.email" required>
+            <form ngNativeValidate #form="ngForm" (ngSubmit)="save(form)">
+                <div class="form-group">
+                    <input type="hidden"
+                        name="id"
+                        [(ngModel)]= "item._id"
+                            required >
+                    <label for="ticketTextField">Name</label>
+                    <input type="text" class="form-control"
+                        id="ticketTextField"
+                        placeholder="Enter your name"
+                        name="name" 
+                        [(ngModel)]="item.name"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="emailTextField">Email</label>
+                    <input type="email" class="form-control"
+                        id="emailTextField"
+                        placeholder="Enter your email"
+                        name="email" 
+                        [(ngModel)]="item.email"
+                        required>
+                       
+                </div>
+                <div class="form-group">
+                    <label for="ticketStatusTextField">Status</label>
+                    <select class="form-control"
+                        id="ticketStatusTextField"
+                        placeholder="New"
+                        name="ticketStatus" 
+                        [(ngModel)]="item.ticketStatus"
+                        required>                
+                        <option selected value="New" name="New">New</option>
+                        <option value="Cancelled" name="Cancelled">Cancelled</option>
+                        <option value="Resolved" name="Resolved">Resolved</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="descriptionTextField">Description</label>
+                    <input type="text" class="form-control"
+                    id="descriptionTextField"
+                    placeholder="What is the issue?"
+                    name="ticketDescription" 
+                    [(ngModel)]="item.ticketDescription"
+                    required>
+                </div>
+                <div class="form-group">
+                    <label for="recordnumTextField">Record Number</label>
+                    <input type="datetime" class="form-control"
+                    id="recordnumTextField"
+                    name="recordnum" 
+                    [(ngModel)]="item.recordnum"
+                    placeholder="YYYY-DD-MM"
+                    required>
+                </div>
+                <div class="form-group">
+                    <label for="priorityTextField">Priority</label>
+                    <input type="text" class="form-control"
+                    id="priorityTextField"
+                    placeholder="Low"
+                    name="ticketPriority" 
+                    [(ngModel)]="item.ticketPriority"
+                    required>
+                </div>
 
+                <br/>
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-edit"></i> 
+                    Submit
+                </button>
+                
+                <a href="/" class="btn btn-warning">
+                    <i class="fas fa-undo"></i> 
+                    Cancel
+                </a>
+            </form>
         </div>
-        <div class="form-group">
-          <label for="ticketStatusTextField">Status</label>
-          <select class="form-control" id="ticketStatusTextField" placeholder="New" name="ticketStatus"
-            [(ngModel)]="item.ticketStatus" required>
-            <option selected value="New" name="New">New</option>
-            <option value="Cancelled" name="Cancelled">Cancelled</option>
-            <option value="Resolved" name="Resolved">Resolved</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="descriptionTextField">Description</label>
-          <input type="text" class="form-control" id="descriptionTextField" placeholder="What is the issue?"
-            name="ticketDescription" [(ngModel)]="item.ticketDescription" required>
-        </div>
-        <div class="form-group">
-          <label for="recordnumTextField">Record Number</label>
-          <input type="datetime" class="form-control" id="recordnumTextField" name="recordnum"
-            [(ngModel)]="item.recordnum" placeholder="YYYY-DD-MM" required>
-        </div>
-        <div class="form-group">
-          <label for="ticketStatus">Priority</label>
-          <select class="form-control" id="ticketStatus" name="ticketStatus" [(ngModel)]="item.ticketStatus" required>
-            <option selected value="low" name="low">Low</option>
-            <option value="medium" name="medium">Medium</option>
-            <option value="high" name="high">High</option>
-            <option value="very high" name="very high">Very high</option>
-            <option value="urgent" name="urgent">Urgent</option>
-          </select>
-        </div>
-
-        <br />
-        <button class="btn btn-primary" type="submit">
-          <i class="fas fa-edit"></i>
-          Submit
-        </button>
-
-        <a href="/" class="btn btn-warning">
-          <i class="fas fa-undo"></i>
-          Cancel
-        </a>
-      </form>
     </div>
-  </div>
 </div>
 <app-footer></app-footer>
