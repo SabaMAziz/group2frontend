@@ -20,7 +20,7 @@ export class ListComponent {
         { }
 
         get ticket():Tickets[] {
-            return this.repository.getTickets().filter(item => this.showComplete || item.ticketStatus !== "Cancelled" );
+            return this.repository.getTickets();
         }
 
         deleteMethod(item: Tickets) {
