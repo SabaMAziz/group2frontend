@@ -6,21 +6,88 @@ July 25th, 2022 -->
 <!-- Content for the Add_Edit page -->
 <app-header></app-header>
 <div class="container">
-  <div class="row">
-    <div class="offset-md-3 col-md-6">
-      <h1> {{editing ? "Edit": "Update Ticket" }} Item <span>{{item.ticketStatus}}</span></h1>
 
-      <form ngNativeValidate #form="ngForm" (ngSubmit)="save(form)">
-        <div class="form-group">
-          <input type="hidden" name="id" [(ngModel)]="item._id" required>
-          <label for="ticketTextField">Name</label>
-          <input type="text" class="form-control" id="ticketTextField" placeholder="Enter your name" name="name"
-            [(ngModel)]="item.name" required>
-        </div>
-        <div class="form-group">
-          <label for="emailTextField">Email</label>
-          <input type="email" class="form-control" id="emailTextField" placeholder="Enter your email" name="email"
-            [(ngModel)]="item.email" required>
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+
+            <h1> {{editing ? "Edit": "Create" }} Ticket</h1>
+
+
+            <form ngNativeValidate #form="ngForm" (ngSubmit)="save(form)"> <!--NEED TO GET CURRENT USER AND COMMENT AND PASS THEM IN HERE TOO -->
+                <div class="form-group">
+                    <input type="hidden"
+                        name="id"
+                        [(ngModel)]= "item._id"
+                            required >
+                    <label for="ticketTextField">Name</label>
+                    <input type="text" class="form-control"
+                        id="ticketTextField"
+                        placeholder="Enter your name"
+                        name="name" 
+                        [(ngModel)]="item.name"
+                        required
+                        disabled>
+                </div>
+                <div class="form-group">
+                    <label for="emailTextField">Email</label>
+                    <input type="email" class="form-control"
+                        id="emailTextField"
+                        placeholder="Enter your email"
+                        name="email" 
+                        [(ngModel)]="item.email"
+                        required>
+                       
+                </div>
+                <div class="form-group">
+                    <label for="ticketStatusTextField">Status</label>
+                    <select class="form-control"
+                        id="ticketStatusTextField"
+                        placeholder="New"
+                        name="ticketStatus" 
+                        [(ngModel)]="item.ticketStatus"
+                        required>                
+                        <option selected value="New" name="New">New</option>
+                        <option value="Resolved" name="Resolved">In Progress</option>
+                        <option value="Cancelled" name="Cancelled">Cancelled</option>
+                        <option value="Resolved" name="Resolved">Closed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="descriptionTextField">Description</label>
+                    <input type="text" class="form-control"
+                    id="descriptionTextField"
+                    placeholder="What is the issue?"
+                    name="ticketDescription" 
+                    [(ngModel)]="item.ticketDescription"
+                    required>
+                </div>
+                <div class="form-group">
+                    <label for="recordnumTextField">Record Number</label>
+                    <input type="datetime" class="form-control"
+                    id="recordnumTextField"
+                    name="recordnum" 
+                    [(ngModel)]="item.recordnum"
+                    placeholder="YYYY-DD-MM"
+                    required>
+                </div>
+                <div class="form-group">
+                    <label for="priorityTextField">Priority</label>
+                    <input type="text" class="form-control"
+                    id="priorityTextField"
+                    placeholder="Low"
+                    name="ticketPriority" 
+                    [(ngModel)]="item.ticketPriority"
+                    required>
+                </div>
+                <div class="form-group"> 
+                    <label for="priorityTextField">Comments</label>
+                    <input type="text" class="form-control"
+                    id="commentText"
+                    placeholder="add comment here"
+                    name="comment" 
+                    [(ngModel)]="item.comment"                     
+                    required>
+                </div>
 
         </div>
         <div class="form-group">

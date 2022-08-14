@@ -84,6 +84,9 @@ export class ListComponent implements OnInit {
       return 'bg-dark';
     }
   }
+        get ticket():Tickets[] {
+            return this.repository.getTickets().filter(item => this.showComplete || item.ticketStatus !== "Cancelled" );
+        }
 
   deleteMethod(id: string) {
     if (confirm('Do you want to delete this ticket?')) {
