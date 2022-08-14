@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "../../model/auth.service";
@@ -7,13 +7,12 @@ import { AuthService } from "../../model/auth.service";
     templateUrl: "signin.component.html"
 })
 
-export class SignInComponent  {
+export class SignInComponent {
     public title: string ='Sign';
     public username: string;
     public password: string;
     public message: string;
-    
-   
+
 
     constructor(private router: Router,
         private auth: AuthService) { }
@@ -24,10 +23,10 @@ export class SignInComponent  {
             console.log("still working");
             this.auth.authenticate(this.username, this.password)
                 .subscribe(response => {
-                    if (response.sucess) {
+                    if (response) {
                         this.router.navigateByUrl(this.auth.redirectUrl || "");
                     }
-                    this.message = response.message;
+                    this.message = "Authentication Failed";
                 });
         } else {
             this.message = "Form Data Invalid";

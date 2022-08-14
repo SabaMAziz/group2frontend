@@ -1,9 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Tickets } from "./tickets.model";
-import { Iteration } from './iteration.model'
 import { ResponseModel } from "./response.model";
 import { RestDataSource } from "./rest.datasource";
-import { User } from './user.model';
 
 @Injectable()
 export class TicketsRepository {
@@ -23,30 +21,30 @@ export class TicketsRepository {
         return (this.Tickets.find(item => item._id === id)!);
     }
 
-    saveTickets(item: Tickets, user: string) {        
+    saveTickets(item: Tickets) {
         console.log("working here");
-        console.log(item);
         if (item._id == null || item._id == "") {
             this.dataSource.insertTickets(item).subscribe(p => this.Tickets.push(p));
-        }else {            
-            this.dataSource.updateTickets(item, user).subscribe(p => {
+        }else {
+            this.dataSource.updateTickets(item).subscribe(p => {
                 this.Tickets.splice(this.Tickets.findIndex(i => i._id == item._id), 1, item);
             });
         }
     }
-/*
+
     deleteTickets(id: string) {
         this.dataSource.deleteTickets(id).subscribe(response => {
-            if (response.sucess) {
+            if (response.success) {
                 this.Tickets.splice(this.Tickets.findIndex(item => item._id == id),1);
             }else {
-                alert(response.comment);
+                alert(response.message);
             }
         });    
     }
-*/
-    setToCancelled(item: Tickets){        
-        item.ticketStatus = 'Cancelled';
-        this.dataSource.deleteTickets(item);
+
+    setToCancelled(id: string){
+        // var t = this.getItem(id);
+        // t.ticketStatus = 'Cancelled';
+        // return this.dataSource.updateTickets(t);
     }
 }

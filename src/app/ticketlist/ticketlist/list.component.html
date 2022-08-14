@@ -9,6 +9,7 @@ list.ejs
 
 <!-- MAIN CONTENT -->
 <div class="container">
+<<<<<<< Updated upstream
     <div class="row">
       <div class="col-md-offset-1 col-md-10">
         <h3>Tickets Dashboard </h3>
@@ -62,8 +63,67 @@ list.ejs
          <div class="col-md-offset-1 col-md-10 text-center">
           <ul class="pagination pagination-lg pager" id="myPager"></ul>
         </div>
+=======
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <h3>Tickets Dashboard </h3>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Customer Name</th>
+              <th scope="col" class="text-center">Customer Email</th>
+              <th scope="col" class="text-center">Ticket Priority</th>
+              <th scope="col" class="text-center">Ticket Description</th>
+              <th scope="col" class="text-center"></th>
+            </tr>
+          </thead>
+
+
+          <tbody>
+            <ng-template ngFor let-item [ngForOf]="tickets" let-i="index">
+              <tr [ngClass]="
+              {'bg-primary' : item.ticketPriority === 'urgent'  && item.ticketStatus !== 'cancelled'
+              , 'bg-danger' : item.ticketPriority === 'very high' && item.ticketStatus !== 'cancelled'
+              , 'bg-warning' : item.ticketPriority === 'high' && item.ticketStatus !== 'cancelled'
+              , 'bg-info' : item.ticketPriority === 'medium' && item.ticketStatus !== 'cancelled'
+              , 'bg-light' : item.ticketPriority === 'low' && item.ticketStatus !== 'cancelled'
+              , 'bg-dark' : item.ticketStatus === 'cancelled'
+            }">
+                <td>{{ item.name }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.ticketPriority }}</td>
+                <td>{{ item.ticketDescription }}</td>
+
+                <!-- <% if(ticket[count].ticketStatus == 'cancelled'){ }} -->
+                <!--NEED TO FIX THIS-->
+                <td *ngIf="item.ticketStatus == 'cancelled'; else elseBlock">
+                  <a class="btn">
+                    Ticket Status cancelled</a>
+                </td>
+                <ng-template #elseBlock>
+                  <td>
+                    <button [routerLink]="['/ticketlist/edit/', item._id]"
+                      class="btn bg-primary btn-primary btn-sm mr-2"><i
+                        class="fas fa-pencil-alt px-3 mr-2"></i>Edit</button>
+
+                    <button (click)="deleteMethod(item._id)" class="btn btn-danger btn sm"><i
+                        class="fas fa-trash-alt mr-2"></i>Cancel</button>
+
+                  </td>
+                </ng-template>
+              </tr>
+            </ng-template>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-offset-1 col-md-10 text-center">
+        <ul class="pagination pagination-lg pager" id="myPager"></ul>
+>>>>>>> Stashed changes
       </div>
     </div>
   </div>
-  
-  <app-footer></app-footer>
+</div>
+
+<app-footer></app-footer>
